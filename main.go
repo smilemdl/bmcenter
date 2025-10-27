@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// 注册方法路由
-	http.HandleFunc("/", LoginHandler)
+	http.HandleFunc("/", LoginHandler) // todo
 	http.HandleFunc("/hello", HelloHandler)
 	http.HandleFunc("/login", LoginHandler)
 
