@@ -6,6 +6,11 @@ import (
 	"os"
 )
 
+// LoginHandler 处理 /login 路由的函数
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	Handler(w, r, "login/login.html")
+}
+
 // HelloHandler 处理 /hello 路由的函数
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Hello, World!")
@@ -13,11 +18,16 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 
 // TopHandler 处理 / 根页面路由的函数
 func TopHandler(w http.ResponseWriter, r *http.Request) {
-	// 设置响应头为 HTML 类型，确保浏览器正确渲染
+	Handler(w, r, "top.html")
+}
+
+// Handler 根据路由名调用对应的处理函数
+func Handler(w http.ResponseWriter, r *http.Request, route string) {
+	// 设置响应头
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	// 按钮页面的 HTML 内容（直接返回字符串）
-	html, err := os.ReadFile("top.html")
+	// 读HTML内容（直接返回字符串）
+	html, err := os.ReadFile(route)
 	if err != nil {
 		http.Error(w, "Could not load page", http.StatusInternalServerError)
 		fmt.Println("Could not load page")

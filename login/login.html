@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便岷中心</title>
+    <style>
+        /* todo: header footer 提取公共类 */
+        /* todo: 颜色变量提取 */
+
+        /* 基础样式 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px; /* 全局左右留白，避免内容贴边 */
+            box-sizing: border-box;
+        }
+
+        /* 页头 */
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* 主内容区（登录卡片） */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            padding: 20px 0;
+        }
+        .login-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-card__container {
+            padding: 20px;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+        }
+        .login-card__inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .login-card__input {
+            padding: 12px 15px;
+            width: 100%;
+            max-width: 280px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        /* 按钮区域 */
+        .login-card__buttons {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn {
+            padding: 12px 0;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            flex: 1;
+            max-width: 150px;
+        }
+        .btn--login {
+            background-color: rgb(215, 255, 241);
+        }
+        .btn--register {
+            background-color: aliceblue;
+            color: black;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #f1f1f1;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 响应式断点设计（按设备尺寸递增） */
+        /* 1. 超小屏（手机竖屏，<360px） */
+        @media (max-width: 359px) {
+            header, footer {
+                padding: 15px;
+            }
+            .login-card {
+                padding: 20px 10px;
+            }
+            .login-card__input {
+                padding: 10px 12px; /* 缩小输入框内边距 */
+                font-size: 14px;
+            }
+            .btn {
+                padding: 10px 0;
+                font-size: 14px;
+            }
+        }
+
+        /* 2. 小屏（手机横屏/小平板，360px~767px） */
+        @media (min-width: 360px) and (max-width: 767px) {
+            .login-card {
+                max-width: 340px; /* 限制卡片宽度，避免过宽 */
+            }
+            /* 按钮保持横向排列，但宽度自适应 */
+        }
+
+        /* 3. 中屏（平板，768px~1023px） */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .login-card {
+                max-width: 400px; /* 平板端适当加宽卡片 */
+                padding: 40px 30px;
+            }
+            .login-card__input {
+                max-width: 300px; /* 输入框略宽 */
+            }
+            .btn {
+                max-width: 180px;
+                font-size: 16px;
+            }
+        }
+
+        /* 4. 大屏（桌面端，≥1024px） */
+        @media (min-width: 1024px) {
+            .login-card {
+                max-width: 500px; /* 桌面端最大宽度 */
+                padding: 50px 40px;
+            }
+            .logo {
+                width: 100px;
+                height: 100px; /* 大屏放大logo */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="https://photo.tuchong.com/17883430/f/49861890.jpg" alt="便岷中心logo">
+    </header>
+    
+    <main>
+        <div class="login-card">
+            <div class="login-card__container">
+                <div class="login-card__inputs">
+                    <label for="username" style="display: none;">用户名</label>
+                    <input type="text" placeholder="用户名" class="login-card__input">
+                    <label for="password" style="display: none;">密码</label>
+                    <input type="password" placeholder="密码" class="login-card__input">
+                </div>
+                <div class="login-card__buttons">
+                    <button class="btn btn--login" onclick="window.location.href='/hello'">登陆</button>
+                    <button class="btn btn--register" onclick="window.location.href='/hello'">注册</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        &copy; 2025 便岷中心
+    </footer>
+</body>
+</html>

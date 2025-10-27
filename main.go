@@ -7,8 +7,9 @@ import (
 
 func main() {
 	// 注册方法路由
-	http.HandleFunc("/", TopHandler)
+	http.HandleFunc("/", LoginHandler)
 	http.HandleFunc("/hello", HelloHandler)
+	http.HandleFunc("/login", LoginHandler)
 
 	// 启动服务器
 	fmt.Println("Starting server on :8080")
