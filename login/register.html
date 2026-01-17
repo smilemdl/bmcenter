@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <style>
+        /* 基础样式 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px; /* 全局左右留白，避免内容贴边 */
+            box-sizing: border-box;
+        }
+
+        /* 页头 */
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* 主内容区（注册卡片） */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            padding: 20px 0;
+        }
+        .login-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-card__container {
+            padding: 20px;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+        }
+        .login-card__inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .login-card__input {
+            padding: 12px 15px;
+            width: 100%;
+            max-width: 280px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        /* 验证码输入组样式 */
+        .verify-code-group {
+            display: flex;
+            width: 100%;
+            max-width: 280px;
+            gap: 8px;
+            align-items: center;
+        }
+        .verify-code-input {
+            flex: 1;
+            margin: 8px 0;
+        }
+        .get-code-btn {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            background-color: #e8f4f8;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            margin: 8px 0;
+        }
+        .get-code-btn:disabled {
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .get-code-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #d4e9f0;
+        }
+
+        /* 按钮区域 */
+        .login-card__buttons {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn {
+            padding: 12px 0;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            flex: 1;
+            max-width: 150px;
+        }
+        .btn--login {
+            background-color: rgb(215, 255, 241);
+        }
+        .btn--register {
+            background-color: aliceblue;
+            color: black;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #f1f1f1;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 响应式断点设计（按设备尺寸递增） */
+        @media (max-width: 359px) {
+            header, footer {
+                padding: 15px;
+            }
+            .login-card {
+                padding: 20px 10px;
+            }
+            .login-card__input {
+                padding: 10px 12px; /* 缩小输入框内边距 */
+                font-size: 14px;
+            }
+            .get-code-btn {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            .btn {
+                padding: 10px 0;
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 360px) and (max-width: 767px) {
+            .login-card {
+                max-width: 340px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .login-card {
+                max-width: 400px;
+                padding: 40px 30px;
+            }
+            .login-card__input {
+                max-width: 300px;
+            }
+            .verify-code-group {
+                max-width: 300px;
+            }
+            .btn {
+                max-width: 180px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .login-card {
+                max-width: 500px;
+                padding: 50px 40px;
+            }
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="https://photo.tuchong.com/17883430/f/49861890.jpg" alt="便岷中心logo">
+    </header>
+    
+    <main>
+        <div class="login-card">
+            <div class="login-card__container">
+                <div class="login-card__inputs">
+                    <label for="reg-username" style="display: none;">用户名</label>
+                    <input type="text" placeholder="用户名" class="login-card__input" id="reg-username">
+                    
+                    <label for="reg-phone" style="display: none;">手机号</label>
+                    <input type="tel" placeholder="请输入手机号" class="login-card__input" id="reg-phone" maxlength="11">
+                    
+                    <!-- 验证码输入组 -->
+                    <div class="verify-code-group">
+                        <label for="reg-code" style="display: none;">验证码</label>
+                        <input type="text" placeholder="请输入验证码" class="login-card__input verify-code-input" id="reg-code" maxlength="6">
+                        <button type="button" class="get-code-btn" id="getCodeBtn" onclick="sendVerifyCode()">获取验证码</button>
+                    </div>
+                    
+                    <label for="reg-password" style="display: none;">密码</label>
+                    <input type="password" placeholder="设置密码" class="login-card__input" id="reg-password">
+                    
+                    <label for="reg-confirm" style="display: none;">确认密码</label>
+                    <input type="password" placeholder="确认密码" class="login-card__input" id="reg-confirm">
+                </div>
+                <div class="login-card__buttons">
+                    <button class="btn btn--login" onclick="window.location.href='/'">返回登录</button>
+                    <button class="btn btn--register" onclick="submitRegister()">完成注册</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        &copy; 2025 便岷中心
+    </footer>
+
+    <script>
+        let countdown = 60;
+        let isSending = false; // 防止重复发送的标记
+        
+        /**
+         * 发送验证码
+         */
+        function sendVerifyCode() {
+            const phoneInput = document.getElementById('reg-phone');
+            const phone = phoneInput.value.trim();
+            const getCodeBtn = document.getElementById('getCodeBtn');
+            
+            // 1. 手机号校验
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                alert('请输入正确的手机号');
+                phoneInput.focus();
+                return;
+            }
+            
+            // 2. 防止重复发送
+            if (isSending) return;
+            isSending = true;
+            getCodeBtn.disabled = true;
+            
+            // 3. 模拟发送请求（实际项目中替换为真实接口调用）
+            console.log(`向手机号 ${phone} 发送验证码`);
+            
+            // 模拟API请求
+            setTimeout(() => {
+                // 模拟请求成功
+                alert('验证码已发送，请注意查收');
+                
+                // 4. 倒计时逻辑
+                getCodeBtn.innerText = `重新发送(${countdown}s)`;
+                const timer = setInterval(() => {
+                    countdown--;
+                    getCodeBtn.innerText = `重新发送(${countdown}s)`;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        getCodeBtn.disabled = false;
+                        getCodeBtn.innerText = '获取验证码';
+                        countdown = 60;
+                        isSending = false;
+                    }
+                }, 1000);
+                
+            }, 1000); // 模拟网络延迟1秒
+        }
+        
+        /**
+         * 提交注册（简单校验）
+         */
+        function submitRegister() {
+            const username = document.getElementById('reg-username').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const code = document.getElementById('reg-code').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirmPwd = document.getElementById('reg-confirm').value;
+            
+            // 简单表单校验
+            if (!username) {
+                alert('请输入用户名');
+                return;
+            }
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                alert('请输入正确的手机号');
+                return;
+            }
+            if (!code || code.length !== 6) {
+                alert('请输入6位验证码');
+                return;
+            }
+            if (password.length < 6) {
+                alert('密码长度不能少于6位');
+                return;
+            }
+            if (password !== confirmPwd) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+            
+            // 模拟注册请求
+            alert('注册成功！即将跳转到首页');
+            window.location.href='/hello';
+        }
+    </script>
+</body>
+</html>
